@@ -57,7 +57,7 @@
       "id": "kfa-house-soley-squat-2019-07",
       "athlete": "Sóley Margrét Jónsdóttir",
       "division": "Konur",
-      "weight_class": null,
+      "weight_class": "+100",
       "original_weight_class": "+84",
       "lift": "squat",
       "value": 290,
@@ -67,9 +67,9 @@
       "performance_type": "training",
       "venue": null,
       "event": "Æfing",
-      "source": "Staðfest af KFA í samtali 13. nóvember 2026",
+      "source": "Staðfest af KFA í samtali 13. nóvember 2026; +100 kg flokkur staðfestur 13. nóvember 2026",
       "status": "approved",
-      "classification_status": "awaiting_weight_class"
+      "classification_status": "confirmed"
     },
     {
       "id": "kfa-house-hulda-squat-2605",
@@ -86,6 +86,34 @@
       "venue": null,
       "event": null,
       "source": "Staðfest af KFA í samtali 13. nóvember 2026",
+      "status": "approved",
+      "classification_status": "confirmed"
+    },
+    {
+      "id": "kfa-house-ardis-bench-plus100",
+      "athlete": "Árdís Ósk Steinarsdóttir",
+      "division": "Konur",
+      "weight_class": "+100",
+      "lift": "bench",
+      "value": 200,
+      "date": null,
+      "date_note": "Ótilgreint",
+      "performance_type": "unknown",
+      "source": "Skráð af KFA 13. nóvember 2026",
+      "status": "approved",
+      "classification_status": "confirmed"
+    },
+    {
+      "id": "kfa-house-soley-deadlift-plus100",
+      "athlete": "Sóley Margrét Jónsdóttir",
+      "division": "Konur",
+      "weight_class": "+100",
+      "lift": "deadlift",
+      "value": 210,
+      "date": null,
+      "date_note": "Ótilgreint",
+      "performance_type": "unknown",
+      "source": "Skráð af KFA 13. nóvember 2026",
       "status": "approved",
       "classification_status": "confirmed"
     }
