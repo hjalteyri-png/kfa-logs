@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - ".github/workflows/import-openpowerlifting.yml"
+      - "tools/import_openpowerlifting.py"
 permissions:
   contents: write
 jobs:
@@ -14,7 +15,7 @@ jobs:
       - name: Download OpenPowerlifting bulk export
         run: curl --fail --location --retry 3 --output /tmp/openpowerlifting-latest.zip https://openpowerlifting.gitlab.io/opl-csv/files/openpowerlifting-latest.zip
       - name: Produce browser rankings
-        run: python3 tools/import_openpowerlifting.py /tmp/openpowerlifting-latest.zip --limit 100
+        run: python3 tools/import_openpowerlifting.py /tmp/openpowerlifting-latest.zip --limit 15
       - name: Commit generated rankings
         run: |
           git config user.name "github-actions[bot]"
