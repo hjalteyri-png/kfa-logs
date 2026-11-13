@@ -1,8 +1,8 @@
 {
-  "version": 2,
+  "version": 3,
   "club": "KFA",
   "updated": "2026-11-13",
-  "description": "KFA beta: curated historical Akureyri references and USAPL-class ladder configuration. Historical records do not become USAPL class records automatically.",
+  "description": "Unified KFA USAPL-category ladder. Historical Akureyri reference results require verified athlete bodyweight before assignment to a USAPL class. Original class retained as provenance.",
   "feats": [
     {
       "id": "bench",
@@ -83,7 +83,9 @@
       "source": "results.kraft.is (historical reference)",
       "source_url": "https://results.kraft.is/lifter/joel-pall-vidarsson",
       "status": "approved",
-      "notes": "Historical result referenced from athlete's public competition page; equipment/division not independently confirmed for KFA ladder."
+      "notes": "Historical result referenced from athlete's public competition page; equipment/division not independently confirmed for KFA ladder.",
+      "usapl_weight_class": null,
+      "original_weight_class": "120"
     },
     {
       "id": "kfa-archive-1-bench",
@@ -98,7 +100,9 @@
       "source": "results.kraft.is (historical reference)",
       "source_url": "https://results.kraft.is/lifter/joel-pall-vidarsson",
       "status": "approved",
-      "notes": "Historical result referenced from athlete's public competition page; equipment/division not independently confirmed for KFA ladder."
+      "notes": "Historical result referenced from athlete's public competition page; equipment/division not independently confirmed for KFA ladder.",
+      "usapl_weight_class": null,
+      "original_weight_class": "120"
     },
     {
       "id": "kfa-archive-1-deadlift",
@@ -113,7 +117,9 @@
       "source": "results.kraft.is (historical reference)",
       "source_url": "https://results.kraft.is/lifter/joel-pall-vidarsson",
       "status": "approved",
-      "notes": "Historical result referenced from athlete's public competition page; equipment/division not independently confirmed for KFA ladder."
+      "notes": "Historical result referenced from athlete's public competition page; equipment/division not independently confirmed for KFA ladder.",
+      "usapl_weight_class": null,
+      "original_weight_class": "120"
     },
     {
       "id": "kfa-archive-1-total",
@@ -128,7 +134,9 @@
       "source": "results.kraft.is (historical reference)",
       "source_url": "https://results.kraft.is/lifter/joel-pall-vidarsson",
       "status": "approved",
-      "notes": "Historical result referenced from athlete's public competition page; equipment/division not independently confirmed for KFA ladder."
+      "notes": "Historical result referenced from athlete's public competition page; equipment/division not independently confirmed for KFA ladder.",
+      "usapl_weight_class": null,
+      "original_weight_class": "120"
     },
     {
       "id": "kfa-archive-2-bench",
@@ -143,7 +151,9 @@
       "source": "results.kraft.is (historical reference)",
       "source_url": "https://results.kraft.is/lifter/joel-pall-vidarsson",
       "status": "approved",
-      "notes": "Historical result referenced from athlete's public competition page; equipment/division not independently confirmed for KFA ladder."
+      "notes": "Historical result referenced from athlete's public competition page; equipment/division not independently confirmed for KFA ladder.",
+      "usapl_weight_class": null,
+      "original_weight_class": "120"
     },
     {
       "id": "kfa-archive-3-squat",
@@ -158,7 +168,9 @@
       "source": "results.kraft.is (historical reference)",
       "source_url": "https://results.kraft.is/lifter/hilmir-freyr-gudmundsson",
       "status": "approved",
-      "notes": "Historical result referenced from athlete's public competition page; equipment/division not independently confirmed for KFA ladder."
+      "notes": "Historical result referenced from athlete's public competition page; equipment/division not independently confirmed for KFA ladder.",
+      "usapl_weight_class": null,
+      "original_weight_class": "67,5"
     },
     {
       "id": "kfa-archive-3-bench",
@@ -173,7 +185,9 @@
       "source": "results.kraft.is (historical reference)",
       "source_url": "https://results.kraft.is/lifter/hilmir-freyr-gudmundsson",
       "status": "approved",
-      "notes": "Historical result referenced from athlete's public competition page; equipment/division not independently confirmed for KFA ladder."
+      "notes": "Historical result referenced from athlete's public competition page; equipment/division not independently confirmed for KFA ladder.",
+      "usapl_weight_class": null,
+      "original_weight_class": "67,5"
     },
     {
       "id": "kfa-archive-3-deadlift",
@@ -188,7 +202,9 @@
       "source": "results.kraft.is (historical reference)",
       "source_url": "https://results.kraft.is/lifter/hilmir-freyr-gudmundsson",
       "status": "approved",
-      "notes": "Historical result referenced from athlete's public competition page; equipment/division not independently confirmed for KFA ladder."
+      "notes": "Historical result referenced from athlete's public competition page; equipment/division not independently confirmed for KFA ladder.",
+      "usapl_weight_class": null,
+      "original_weight_class": "67,5"
     },
     {
       "id": "kfa-archive-3-total",
@@ -203,7 +219,9 @@
       "source": "results.kraft.is (historical reference)",
       "source_url": "https://results.kraft.is/lifter/hilmir-freyr-gudmundsson",
       "status": "approved",
-      "notes": "Historical result referenced from athlete's public competition page; equipment/division not independently confirmed for KFA ladder."
+      "notes": "Historical result referenced from athlete's public competition page; equipment/division not independently confirmed for KFA ladder.",
+      "usapl_weight_class": null,
+      "original_weight_class": "67,5"
     },
     {
       "id": "kfa-archive-4-squat",
@@ -218,7 +236,9 @@
       "source": "results.kraft.is (historical reference)",
       "source_url": "https://results.kraft.is/lifter/helgi-gardar-gardar",
       "status": "approved",
-      "notes": "Historical result referenced from athlete's public competition page; equipment/division not independently confirmed for KFA ladder."
+      "notes": "Historical result referenced from athlete's public competition page; equipment/division not independently confirmed for KFA ladder.",
+      "usapl_weight_class": null,
+      "original_weight_class": "83"
     },
     {
       "id": "kfa-archive-4-bench",
@@ -233,7 +253,9 @@
       "source": "results.kraft.is (historical reference)",
       "source_url": "https://results.kraft.is/lifter/helgi-gardar-gardar",
       "status": "approved",
-      "notes": "Historical result referenced from athlete's public competition page; equipment/division not independently confirmed for KFA ladder."
+      "notes": "Historical result referenced from athlete's public competition page; equipment/division not independently confirmed for KFA ladder.",
+      "usapl_weight_class": null,
+      "original_weight_class": "83"
     },
     {
       "id": "kfa-archive-4-deadlift",
@@ -248,7 +270,9 @@
       "source": "results.kraft.is (historical reference)",
       "source_url": "https://results.kraft.is/lifter/helgi-gardar-gardar",
       "status": "approved",
-      "notes": "Historical result referenced from athlete's public competition page; equipment/division not independently confirmed for KFA ladder."
+      "notes": "Historical result referenced from athlete's public competition page; equipment/division not independently confirmed for KFA ladder.",
+      "usapl_weight_class": null,
+      "original_weight_class": "83"
     },
     {
       "id": "kfa-archive-4-total",
@@ -263,7 +287,9 @@
       "source": "results.kraft.is (historical reference)",
       "source_url": "https://results.kraft.is/lifter/helgi-gardar-gardar",
       "status": "approved",
-      "notes": "Historical result referenced from athlete's public competition page; equipment/division not independently confirmed for KFA ladder."
+      "notes": "Historical result referenced from athlete's public competition page; equipment/division not independently confirmed for KFA ladder.",
+      "usapl_weight_class": null,
+      "original_weight_class": "83"
     },
     {
       "id": "kfa-archive-5-squat",
@@ -278,7 +304,9 @@
       "source": "results.kraft.is (historical reference)",
       "source_url": "https://results.kraft.is/lifter/arni-gudmundsson",
       "status": "approved",
-      "notes": "Historical result referenced from athlete's public competition page; equipment/division not independently confirmed for KFA ladder."
+      "notes": "Historical result referenced from athlete's public competition page; equipment/division not independently confirmed for KFA ladder.",
+      "usapl_weight_class": null,
+      "original_weight_class": "105"
     },
     {
       "id": "kfa-archive-5-bench",
@@ -293,7 +321,9 @@
       "source": "results.kraft.is (historical reference)",
       "source_url": "https://results.kraft.is/lifter/arni-gudmundsson",
       "status": "approved",
-      "notes": "Historical result referenced from athlete's public competition page; equipment/division not independently confirmed for KFA ladder."
+      "notes": "Historical result referenced from athlete's public competition page; equipment/division not independently confirmed for KFA ladder.",
+      "usapl_weight_class": null,
+      "original_weight_class": "105"
     },
     {
       "id": "kfa-archive-5-deadlift",
@@ -308,7 +338,9 @@
       "source": "results.kraft.is (historical reference)",
       "source_url": "https://results.kraft.is/lifter/arni-gudmundsson",
       "status": "approved",
-      "notes": "Historical result referenced from athlete's public competition page; equipment/division not independently confirmed for KFA ladder."
+      "notes": "Historical result referenced from athlete's public competition page; equipment/division not independently confirmed for KFA ladder.",
+      "usapl_weight_class": null,
+      "original_weight_class": "105"
     },
     {
       "id": "kfa-archive-5-total",
@@ -323,7 +355,9 @@
       "source": "results.kraft.is (historical reference)",
       "source_url": "https://results.kraft.is/lifter/arni-gudmundsson",
       "status": "approved",
-      "notes": "Historical result referenced from athlete's public competition page; equipment/division not independently confirmed for KFA ladder."
+      "notes": "Historical result referenced from athlete's public competition page; equipment/division not independently confirmed for KFA ladder.",
+      "usapl_weight_class": null,
+      "original_weight_class": "105"
     }
   ],
   "record_classes": [
