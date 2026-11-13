@@ -2,7 +2,7 @@
   "version": 2,
   "club": "KFA",
   "updated": "2026-11-13",
-  "description": "Small public historical KFA beta sample (source-linked), administrator-curated. No claim of complete club history.",
+  "description": "KFA beta: curated historical Akureyri references and USAPL-class ladder configuration. Historical records do not become USAPL class records automatically.",
   "feats": [
     {
       "id": "bench",
@@ -360,5 +360,39 @@
       ],
       "note": "Categories reflect recorded weight class at the historical meet; not a definitive historical class list."
     }
-  ]
+  ],
+  "weight_class_system": {
+    "id": "usapl-2026",
+    "label": "USA Powerlifting 2026",
+    "source_url": "https://www.usapowerlifting.com/assets/general/PDFs/USAPL-Rulebook-v2026.2.pdf",
+    "men": [
+      "52",
+      "56",
+      "60",
+      "67.5",
+      "75",
+      "82.5",
+      "90",
+      "100",
+      "110",
+      "125",
+      "140",
+      "140+"
+    ],
+    "women": [
+      "44",
+      "48",
+      "52",
+      "56",
+      "60",
+      "65",
+      "70",
+      "75",
+      "82.5",
+      "90",
+      "100",
+      "100+"
+    ],
+    "note": "Used for new KFA club ladder entries. Historic Akureyri record categories remain as published. Reclassification requires actual meet-day bodyweight."
+  }
 }
