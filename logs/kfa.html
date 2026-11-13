@@ -5,7 +5,7 @@
 </style></head><body>
 <header><a href="../"><strong>KFA</strong><small>HÚSMET / KVELDÚLFUR LOGS</small></a><a href="index.html">KVELDÚLFUR ↗</a></header>
 <main><div class="overline">LIFANDI METATAFLA / KFA</div><h1>HÚS<em>MET.</em></h1><p class="intro">Kraftlyftingar. Met í hnébeygju, bekkpressu, réttstöðulyftu og samanlögðu. Félagsmenn og gestir geta sett met, hvort sem lyftan er á æfingu eða í keppni. Met eru birt eftir staðfestingu stjórnenda.</p>
-<section class="panel" id="historical"><div class="row"><h2>Akureyrarmet · söguleg skrá</h2><span class="pill">KFA SAFN / 2019</span></div><p class="small">Gömlu metatöflurnar af vef KFA. Upprunalegir þyngdarflokkar eru sýndir nákvæmlega eins og í gögnunum, enda vantar raunverulega vigt einstakra keppenda til að færa þau í þyngdarflokka. Þetta eru Akureyrarmet, ekki sjálfkrafa húsmet.</p><div class="controls"><label>Íþrótt<select id="archiveSport"><option value="Powerlifting">Kraftlyftingar</option><option value="Weightlifting">Ólympískar lyftingar</option></select></label><label>Flokkur<select id="archiveDivision"><option>Karlar</option><option>Konur</option></select></label></div><nav class="lifts" id="archiveLifts" aria-label="Sögulegar lyftur"></nav><p class="small" id="archiveStatus">Sæki sögulegu metin…</p><div class="tablewrap"><table><thead><tr><th>Uppr. flokkur</th><th>Nafn</th><th>Staður</th><th>Dagsetning</th><th>Lyfta</th></tr></thead><tbody id="archiveBoard"></tbody></table></div><p class="small">„Viðmið“ eru viðmiðunartölur, ekki einstaklingar. Óljósar eða afskornar dagsetningar eru ekki ágiskaðar.</p></section><div class="summary"><div><strong id="number">—</strong><span>Skráð söguleg met og húslyftur</span></div><div><strong id="athletes">—</strong><span>Nafngreindir lyftendur</span></div><div><strong id="classes">—</strong><span>Sögulegir metflokkar</span></div></div>
+<section class="panel" id="historical"><div class="row"><h2>Akureyrarmet · söguleg skrá</h2><span class="pill">KFA SAFN / 2019</span></div><p class="small">Gömlu metatöflurnar af vef KFA. Upprunalegir þyngdarflokkar eru varðveittir í gagnasafninu. Met í léttari flokki gilda líka í þyngri flokkum; upprunaflokkur er merktur þegar met flyst upp. Þetta eru Akureyrarmet, ekki sjálfkrafa húsmet.</p><div class="controls"><label>Íþrótt<select id="archiveSport"><option value="Powerlifting">Kraftlyftingar</option><option value="Weightlifting">Ólympískar lyftingar</option></select></label><label>Flokkur<select id="archiveDivision"><option>Karlar</option><option>Konur</option></select></label></div><nav class="lifts" id="archiveLifts" aria-label="Sögulegar lyftur"></nav><p class="small" id="archiveStatus">Sæki sögulegu metin…</p><div class="tablewrap"><table><thead><tr><th>Uppr. flokkur</th><th>Nafn</th><th>Staður</th><th>Dagsetning</th><th>Lyfta</th></tr></thead><tbody id="archiveBoard"></tbody></table></div><p class="small">„Viðmið“ eru viðmiðunartölur, ekki einstaklingar. Óljósar eða afskornar dagsetningar eru ekki ágiskaðar.</p></section><div class="summary"><div><strong id="number">—</strong><span>Skráð söguleg met og húslyftur</span></div><div><strong id="athletes">—</strong><span>Nafngreindir lyftendur</span></div><div><strong id="classes">—</strong><span>Sögulegir metflokkar</span></div></div>
 <section class="panel"><div class="row"><h2>Metatafla</h2><span class="pill">ÞYNGDARFLOKKAR</span></div>
 <div class="controls"><label>Flokkur<select id="division"><option>Karlar</option><option selected>Konur</option></select></label><label>Þyngdarflokkur<select id="weight"><option value="all">Allir flokkar</option></select></label></div>
 <nav class="lifts" id="lifts" aria-label="Lyftur"></nav><p class="small" id="status">Sæki húsmet…</p><div class="tablewrap"><table><thead><tr><th>Þyngdarflokkur</th><th>Methafi</th><th>Tengsl</th><th>Tegund</th><th>Dags.</th><th>Staður</th><th>Árangur</th></tr></thead><tbody id="board"></tbody></table></div>
@@ -75,13 +75,25 @@ render();
 function render(){
 const sport=byId("archiveSport").value,division=byId("archiveDivision").value;
 const records=archive.records.filter(r=>r.discipline===sport&&r.division===division&&r.lift===selected);
-byId("archiveStatus").textContent=records.length+" skráðar færslur · "+labels[selected];
+const classValue=c=>String(c).startsWith("+")?Number(String(c).slice(1))+0.001:Number(String(c).replace(",","."));
+const classes=[...new Set(records.map(r=>r.original_weight_class))].sort((a,b)=>classValue(a)-classValue(b));
 const tbody=byId("archiveBoard");tbody.replaceChildren();
-for(const r of records){const tr=document.createElement("tr");const fields=[r.original_weight_class+" kg",r.record_type==="benchmark"?"Viðmið":r.athlete,r.venue||"—",r.date||"—",r.value.toLocaleString("is-IS")+" kg"];fields.forEach(v=>tr.append(make("td",v)));tbody.append(tr)}
-if(!records.length){const tr=document.createElement("tr"),td=make("td","Engin met skráð í þessum flokki");td.colSpan=5;tr.append(td);tbody.append(tr)}
+let shown=0;
+for(const cls of classes){
+ const eligible=records.filter(r=>classValue(r.original_weight_class)<=classValue(cls)&&r.record_type!=="benchmark");
+ const best=eligible.sort((a,b)=>b.value-a.value)[0];
+ if(!best)continue;
+ const tr=document.createElement("tr");
+ const fields=[cls+" kg",best.athlete,best.venue||"—",best.date||"—",best.value.toLocaleString("is-IS")+" kg"];
+ fields.forEach(v=>tr.append(make("td",v)));
+ if(best.original_weight_class!==cls){tr.title="Met sett í "+best.original_weight_class+" kg flokki";tr.cells[1].append(make("small"," (úr "+best.original_weight_class+" kg)"))}
+ tbody.append(tr);shown++;
+}
+byId("archiveStatus").textContent=shown+" flokkar · "+labels[selected]+" · met úr léttari flokkum gilda í þyngri";
+if(!shown){const tr=document.createElement("tr"),td=make("td","Engin met skráð í þessum flokki");td.colSpan=5;tr.append(td);tbody.append(tr)}
 }
 byId("archiveSport").addEventListener("change",choices);byId("archiveDivision").addEventListener("change",choices);
-fetch("data/kfa-historical-records.json?v="+Date.now(),{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("Söguleg met ekki tiltæk");return r.json()}).then(d=>{archive=d;
+fetch("data/akureyri-historical-records.json?v="+Date.now(),{cache:"no-store"}).then(r=>{if(!r.ok)throw Error("Söguleg met ekki tiltæk");return r.json()}).then(d=>{archive=d;
  const named=d.records.filter(r=>r.record_type!=="benchmark");
  const allNamed=new Set(named.map(r=>r.athlete.toLocaleLowerCase("is-IS")));
  byId("number").textContent=d.records.length+Number(byId("number").textContent||0);
