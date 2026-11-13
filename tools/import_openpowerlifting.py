@@ -39,7 +39,9 @@ def source_rows(path):
 
 
 def build(path, limit):
-    best = {}
+    # Keep only the strongest N distinct names per category, in bounded memory.
+    # This lets a 4-million-row source produce a tiny beta export.
+    groups = defaultdict(dict)
     count = 0
     for row in source_rows(path):
         count += 1
@@ -48,7 +50,7 @@ def build(path, limit):
         equipment = (row.get("Equipment") or "").strip()
         if not athlete or not sex or not equipment:
             continue
-        if row.get("Place") in ("DQ", "DD", "NS"):
+        if (row.get("Place") or "").strip() in ("DQ", "DD", "NS"):
             continue
         for feat, (column, _) in FEATS.items():
             try:
@@ -57,26 +59,32 @@ def build(path, limit):
                 continue
             if not 0 < value < 2000:
                 continue
-            key = (feat, sex, equipment, athlete)
-            existing = best.get(key)
-            if existing is None or value > existing["value"]:
-                best[key] = {
-                    "name": athlete, "sex": sex, "equipment": equipment,
-                    "feat": feat, "value": value,
-                    "bodyweight": row.get("BodyweightKg") or None,
-                    "federation": row.get("Federation") or "",
-                    "meet": row.get("MeetName") or "",
-                    "date": row.get("Date") or "",
-                    "country": row.get("Country") or "",
-                    "source": "OpenPowerlifting",
-                }
-    groups = defaultdict(list)
-    for record in best.values():
-        groups[(record["feat"], record["sex"], record["equipment"])].append(record)
+            key = (feat, sex, equipment)
+            records = groups[key]
+            previous = records.get(athlete)
+            if previous is not None and value <= previous["value"]:
+                continue
+            if previous is None and len(records) >= limit:
+                weakest_name, weakest = min(
+                    records.items(), key=lambda item: (item[1]["value"], item[0])
+                )
+                if value <= weakest["value"]:
+                    continue
+                del records[weakest_name]
+            records[athlete] = {
+                "name": athlete, "sex": sex, "equipment": equipment,
+                "feat": feat, "value": value,
+                "bodyweight": row.get("BodyweightKg") or None,
+                "federation": row.get("Federation") or "",
+                "meet": row.get("MeetName") or "",
+                "date": row.get("Date") or "",
+                "country": row.get("Country") or "",
+                "source": "OpenPowerlifting",
+            }
     rankings = []
-    for (feat, sex, equipment), records in sorted(groups.items()):
-        records.sort(key=lambda r: (-r["value"], r["name"]))
-        for rank, record in enumerate(records[:limit], start=1):
+    for (feat, sex, equipment), unique in sorted(groups.items()):
+        records = sorted(unique.values(), key=lambda r: (-r["value"], r["name"]))
+        for rank, record in enumerate(records, start=1):
             rankings.append({"rank": rank, **record})
     return {
         "source": "OpenPowerlifting",
