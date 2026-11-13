@@ -10,7 +10,7 @@
 <div class="controls"><label>Flokkur<select id="division"><option>Karlar</option><option selected>Konur</option></select></label><label>Þyngdarflokkur<select id="weight"><option value="all">Allir flokkar</option></select></label></div>
 <nav class="lifts" id="lifts" aria-label="Lyftur"></nav><p class="small" id="status">Sæki húsmet…</p><div class="tablewrap"><table><thead><tr><th>Þyngdarflokkur</th><th>Methafi</th><th>Tengsl</th><th>Tegund</th><th>Dags.</th><th>Staður</th><th>Árangur</th></tr></thead><tbody id="board"></tbody></table></div>
 <div id="detail" class="detail" hidden></div><div id="pendingWrap" style="margin-top:28px;border-top:1px solid var(--line);padding-top:20px"><h2>Staðfestar lyftur · flokkun ólokið</h2><p class="small">Þessar lyftur hafa verið staðfestar af KFA en bíða réttrar þyngdarflokkunar. Upprunalegur flokkur er varðveittur þar sem hann er þekktur.</p><div class="tablewrap"><table><thead><tr><th>Nafn</th><th>Lyfta</th><th>Þekktur eldri flokkur</th><th>Dagsetning</th><th>Árangur</th></tr></thead><tbody id="pendingBoard"></tbody></table></div></div></section>
-<section class="panel"><h2>Hvernig taflan virkar</h2><p class="small">Met geta komið frá félagsmönnum eða gestum og úr æfingum eða keppnum. Fyrri met haldast í gagnasafninu þótt þau séu bætt. Stjórnendur yfirfara nýjar lyftur áður en þær birtast; vefsíðan er aðeins til lestrar.</p><p class="small">Sögulegu Akureyrarmetin úr skjáskotunum eru nú skráð hér að ofan. Þau eru aðskilin frá húsmetum og sýnd með upprunalegum þyngdarflokkum. Staðfest húsmet birtast hér að neðan.</p><a href="https://github.com/hjalteyri-png/kfa-logs/edit/main/logs/data/kfa-house-records.json">Stjórnendur: uppfæra staðfest húsmet á GitHub ↗</a></section>
+<section class="panel"><h2>Hvernig taflan virkar</h2><p class="small">Met í léttari þyngdarflokki gilda einnig í öllum þyngri flokkum, þar til hærra met er skráð. Upprunalegur flokkur lyftunnar er varðveittur. Met geta komið frá félagsmönnum eða gestum og úr æfingum eða keppnum. Fyrri met haldast í gagnasafninu þótt þau séu bætt. Stjórnendur yfirfara nýjar lyftur áður en þær birtast; vefsíðan er aðeins til lestrar.</p><p class="small">Sögulegu Akureyrarmetin úr skjáskotunum eru nú skráð hér að ofan. Þau eru aðskilin frá húsmetum og sýnd með upprunalegum þyngdarflokkum. Staðfest húsmet birtast hér að neðan.</p><a href="https://github.com/hjalteyri-png/kfa-logs/edit/main/logs/data/kfa-house-records.json">Stjórnendur: uppfæra staðfest húsmet á GitHub ↗</a></section>
 </main><footer>KFA · Kraftlyftingafélag Akureyrar · Húsmet í kraftlyftingum</footer>
 <script>
 const $=id=>document.getElementById(id);
@@ -26,19 +26,27 @@ function render(){
  const division=$("division").value,weight=$("weight").value;
  $("board").replaceChildren();$("detail").hidden=true;$("detail").replaceChildren();renderPending();
  const approved=db.records.filter(valid).filter(r=>r.division===division&&r.lift===selected);
- const best=new Map();
- for(const r of approved){const key=r.weight_class,previous=best.get(key);if(!previous||r.value>previous.value)best.set(key,r)}
  const classes=db.divisions[division]||[];
+ // A record in a lighter class also counts in every heavier class.
+ const eligible=(record,cls)=>classes.indexOf(record.weight_class)!==-1&&classes.indexOf(record.weight_class)<=classes.indexOf(cls);
+ const best=new Map();
+ for(const cls of classes){
+  const candidates=approved.filter(r=>eligible(r,cls)).sort((a,b)=>b.value-a.value);
+  if(candidates.length)best.set(cls,candidates[0]);
+ }
  const show=weight==="all"?classes:classes.filter(x=>x===weight);
- for(const cls of show){const r=best.get(cls),tr=document.createElement("tr");const cells=r?[cls,r.athlete,r.affiliation==="visitor"?"Gestur":"KFA",r.performance_type==="competition"?"Keppni":"Æfing",r.date||"—",r.venue||"—",r.value+" kg"]:[cls,"—","—","—","—","—","—"];
+ for(const cls of show){
+  const r=best.get(cls),tr=document.createElement("tr");
+  const cells=r?[cls,r.athlete,r.affiliation==="visitor"?"Gestur":r.affiliation==="member"?"KFA":"—",r.performance_type==="competition"?"Keppni":r.performance_type==="training"?"Æfing":"—",r.date||"—",r.venue||"—",r.value.toLocaleString("is-IS")+" kg"]:[cls,"—","—","—","—","—","—"];
   cells.forEach((v,i)=>{const td=make("td",v);if(i===6&&r)td.className="record";tr.append(td)});
-  if(r){tr.style.cursor="pointer";tr.addEventListener("click",()=>showDetail(r,approved.filter(x=>x.weight_class===cls).sort((a,b)=>b.value-a.value)))}$("board").append(tr)
+  if(r){tr.style.cursor="pointer";tr.title="Met skráð í "+r.weight_class+" kg flokki";tr.addEventListener("click",()=>showDetail(r,approved.filter(x=>eligible(x,cls)).sort((a,b)=>b.value-a.value)))}
+  $("board").append(tr);
  }
  const current=db.lifts.find(x=>x.id===selected);$("status").textContent=(current?.name||selected)+" · "+division+" · "+best.size+" flokkar með staðfest húsmet";
 }
 function showDetail(r,history){
  const panel=$("detail");panel.replaceChildren();panel.hidden=false;panel.append(make("h3",r.athlete+" — "+r.value+" kg"));
- for(const [label,val] of [["Met",r.lift],["Flokkur",r.weight_class+" kg"],["Uppruni",r.performance_type==="competition"?"Keppni":"Æfing"],["Tengsl",r.affiliation==="visitor"?"Gestur":"KFA"],["Viðburður",r.event||"—"]]){panel.append(make("p",label+": "+val))}
+ for(const [label,val] of [["Met",r.lift],["Upprunalegur flokkur",r.weight_class+" kg"],["Uppruni",r.performance_type==="competition"?"Keppni":"Æfing"],["Tengsl",r.affiliation==="visitor"?"Gestur":"KFA"],["Viðburður",r.event||"—"]]){panel.append(make("p",label+": "+val))}
  panel.append(make("h4","Skráðar lyftur í þessum flokki"));
  const ul=document.createElement("ul");
  for(const h of history){const li=make("li",h.athlete+" · "+h.value+" kg · "+(h.date||"—"));ul.append(li)}
