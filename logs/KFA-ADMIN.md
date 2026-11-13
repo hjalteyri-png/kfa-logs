@@ -44,3 +44,9 @@ Only entries with `status: "approved"` appear on the public ladder. Drafts and p
 The board starts deliberately empty rather than publishing invented or unapproved KFA performances. A historical source reference is linked on the page. When staff approve initial results, they will appear immediately after the static site is redeployed.
 
 Next phase: staff authentication, athlete identity reconciliation, review queue, and private storage.
+
+## Historical record divisions (v0.2)
+
+The public board now filters by **sex / record division**, **weight class**, and **equipment / category** separately. The historical KFA source links are recorded in `record_classes` in `kfa-results.json`.
+
+The original 2019 record tables were not retrievable, so `weight_classes` are intentionally empty. **Do not invent or substitute modern weight classes.** After verifying the original class labels, place them in the corresponding `record_classes[].weight_classes` arrays (e.g. labels exactly as printed), and add `sex` and `weight_class` fields to each approved result. A rank under 'All weight classes' is an exploratory comparison only, not a single official record class.
