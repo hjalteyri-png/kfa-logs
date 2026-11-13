@@ -52,5 +52,43 @@
       "name": "Samanlagt"
     }
   ],
-  "records": []
+  "records": [
+    {
+      "id": "kfa-house-soley-squat-2019-07",
+      "athlete": "Sóley Margrét Jónsdóttir",
+      "division": "Konur",
+      "weight_class": null,
+      "original_weight_class": "+84",
+      "lift": "squat",
+      "value": 290,
+      "date": null,
+      "date_note": "Lok júlí 2019",
+      "affiliation": "unknown",
+      "performance_type": "training",
+      "venue": null,
+      "event": "Æfing",
+      "source": "Staðfest af KFA í samtali 13. nóvember 2026",
+      "status": "approved",
+      "classification_status": "awaiting_verified_usapl_class"
+    },
+    {
+      "id": "kfa-house-hulda-squat-2605",
+      "athlete": "Hulda B. Waage",
+      "division": "Konur",
+      "weight_class": null,
+      "original_weight_class": null,
+      "lift": "squat",
+      "value": 260.5,
+      "date": null,
+      "date_note": "Dagsetning ótilgreind",
+      "affiliation": "member",
+      "performance_type": "unknown",
+      "venue": null,
+      "event": null,
+      "source": "Staðfest af KFA í samtali 13. nóvember 2026",
+      "status": "approved",
+      "classification_status": "awaiting_verified_usapl_class"
+    }
+  ],
+  "notes": "Confirmed house lifts without verified USAPL weight class remain visible in an unclassified section, not falsely assigned to current division."
 }
