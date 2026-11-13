@@ -2,7 +2,7 @@
   "version": 1,
   "title": "KFA Húsmet — Kraftlyftingar",
   "updated": "2026-11-13",
-  "class_system": "USAPL",
+  "class_system": "KFA",
   "rules": "KFA house board. Members and visiting athletes eligible. Training or competition performances may count, subject to admin approval. Preserve historical results when superseded.",
   "divisions": {
     "Karlar": [
@@ -69,7 +69,7 @@
       "event": "Æfing",
       "source": "Staðfest af KFA í samtali 13. nóvember 2026",
       "status": "approved",
-      "classification_status": "awaiting_verified_usapl_class"
+      "classification_status": "awaiting_weight_class"
     },
     {
       "id": "kfa-house-hulda-squat-2605",
@@ -87,8 +87,8 @@
       "event": null,
       "source": "Staðfest af KFA í samtali 13. nóvember 2026",
       "status": "approved",
-      "classification_status": "confirmed_by_kfa"
+      "classification_status": "confirmed"
     }
   ],
-  "notes": "Confirmed house lifts without verified USAPL weight class remain visible in an unclassified section, not falsely assigned to current division."
+  "notes": "Confirmed house lifts without verified  weight class remain visible in an unclassified section, not falsely assigned to current division."
 }
