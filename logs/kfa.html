@@ -9,7 +9,7 @@
 <section class="panel"><div class="row"><h2>Metatafla</h2><span class="pill">USAPL ÞYNGDARFLOKKAR</span></div>
 <div class="controls"><label>Flokkur<select id="division"><option>Karlar</option><option>Konur</option></select></label><label>Þyngdarflokkur<select id="weight"><option value="all">Allir flokkar</option></select></label></div>
 <nav class="lifts" id="lifts" aria-label="Lyftur"></nav><p class="small" id="status">Sæki húsmet…</p><div class="tablewrap"><table><thead><tr><th>Þyngdarflokkur</th><th>Methafi</th><th>Tengsl</th><th>Tegund</th><th>Dags.</th><th>Staður</th><th>Árangur</th></tr></thead><tbody id="board"></tbody></table></div>
-<div id="detail" class="detail" hidden></div></section>
+<div id="detail" class="detail" hidden></div><div id="pendingWrap" style="margin-top:28px;border-top:1px solid var(--line);padding-top:20px"><h2>Staðfestar lyftur · flokkun ólokið</h2><p class="small">Þessar lyftur hafa verið staðfestar af KFA en bíða réttrar USAPL-þyngdarflokkunar. Upprunalegur flokkur er varðveittur þar sem hann er þekktur.</p><div class="tablewrap"><table><thead><tr><th>Nafn</th><th>Lyfta</th><th>Þekktur eldri flokkur</th><th>Dagsetning</th><th>Árangur</th></tr></thead><tbody id="pendingBoard"></tbody></table></div></div></section>
 <section class="panel"><h2>Hvernig taflan virkar</h2><p class="small">Met geta komið frá félagsmönnum eða gestum og úr æfingum eða keppnum. Fyrri met haldast í gagnasafninu þótt þau séu bætt. Stjórnendur yfirfara nýjar lyftur áður en þær birtast; vefsíðan er aðeins til lestrar.</p><p class="small">Sögulegu Akureyrarmetin eru birt hér að ofan. Húsmet eru sérstakur flokkur og verða færð inn þegar þau hafa verið staðfest.</p><a href="https://github.com/hjalteyri-png/kfa-logs/edit/main/logs/data/kfa-house-records.json">Stjórnendur: uppfæra staðfest húsmet á GitHub ↗</a></section>
 </main><footer>KFA · Kraftlyftingafélag Akureyrar · Húsmet í kraftlyftingum</footer>
 <script>
@@ -17,9 +17,14 @@ const $=id=>document.getElementById(id);
 let db=null,selected="squat";
 const valid=r=>r&&r.status==="approved"&&r.division&&r.weight_class&&r.lift&&typeof r.athlete==="string"&&r.athlete.trim()&&Number.isFinite(r.value)&&r.value>0;
 function make(tag,value){const node=document.createElement(tag);node.textContent=String(value??"—");return node}
+function renderPending(){
+ const list=db.records.filter(r=>r&&r.status==="approved"&&!r.weight_class&&r.division===$("division").value&&r.lift===selected&&Number.isFinite(r.value));
+ const wrap=$("pendingWrap"),body=$("pendingBoard");wrap.hidden=!list.length;body.replaceChildren();
+ for(const r of list.sort((a,b)=>b.value-a.value)){const tr=document.createElement("tr");[r.athlete,r.performance_type==="training"?"Æfing":r.performance_type==="competition"?"Keppni":"Staðfest lyfta",r.original_weight_class?r.original_weight_class+" kg":"Ótilgreindur",r.date_note||r.date||"Ótilgreint",r.value.toLocaleString("is-IS")+" kg"].forEach(x=>tr.append(make("td",x)));body.append(tr)}
+}
 function render(){
  const division=$("division").value,weight=$("weight").value;
- $("board").replaceChildren();$("detail").hidden=true;$("detail").replaceChildren();
+ $("board").replaceChildren();$("detail").hidden=true;$("detail").replaceChildren();renderPending();
  const approved=db.records.filter(valid).filter(r=>r.division===division&&r.lift===selected);
  const best=new Map();
  for(const r of approved){const key=r.weight_class,previous=best.get(key);if(!previous||r.value>previous.value)best.set(key,r)}
@@ -42,7 +47,7 @@ function showDetail(r,history){
 }
 $("division").addEventListener("change",()=>{fillWeights();render()});$("weight").addEventListener("change",render);
 function fillWeights(){const select=$("weight");select.replaceChildren();const all=document.createElement("option");all.value="all";all.textContent="Allir flokkar";select.append(all);for(const c of db.divisions[$("division").value]||[]){const o=make("option",c+" kg");o.value=c;select.append(o)}}
-fetch("data/kfa-house-records.json").then(r=>{if(!r.ok)throw Error("Gögn ekki tiltæk");return r.json()}).then(d=>{db=d;const approved=d.records.filter(valid);$("number").textContent=approved.length;$("athletes").textContent=new Set(approved.map(r=>r.athlete.toLowerCase())).size;$("classes").textContent=new Set([...d.divisions.Karlar,...d.divisions.Konur]).size;const tabs=$("lifts");for(const lift of d.lifts){const b=make("button",lift.name);b.type="button";b.setAttribute("aria-pressed",lift.id===selected?"true":"false");b.addEventListener("click",()=>{selected=lift.id;for(const other of tabs.querySelectorAll("button"))other.setAttribute("aria-pressed",other===b?"true":"false");render()});tabs.append(b)}fillWeights();render()}).catch(e=>{$("status").textContent=e.message});
+fetch("data/kfa-house-records.json").then(r=>{if(!r.ok)throw Error("Gögn ekki tiltæk");return r.json()}).then(d=>{db=d;const approved=d.records.filter(valid);$("number").textContent=d.records.filter(r=>r&&r.status==="approved"&&Number.isFinite(r.value)).length;$("athletes").textContent=new Set(d.records.filter(r=>r&&r.status==="approved").map(r=>r.athlete.toLowerCase())).size;$("classes").textContent=new Set([...d.divisions.Karlar,...d.divisions.Konur]).size;const tabs=$("lifts");for(const lift of d.lifts){const b=make("button",lift.name);b.type="button";b.setAttribute("aria-pressed",lift.id===selected?"true":"false");b.addEventListener("click",()=>{selected=lift.id;for(const other of tabs.querySelectorAll("button"))other.setAttribute("aria-pressed",other===b?"true":"false");render()});tabs.append(b)}fillWeights();render()}).catch(e=>{$("status").textContent=e.message});
 </script><script>
 (function(){
 const byId=id=>document.getElementById(id);
