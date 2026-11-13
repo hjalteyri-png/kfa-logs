@@ -1,0 +1,73 @@
+{
+  "version": 1,
+  "club": "KFA",
+  "updated": "2026-11-13",
+  "description": "Admin-approved KFA performance records. No imported results have been approved yet.",
+  "feats": [
+    {
+      "id": "bench",
+      "role": "Lifting",
+      "klass": "Powerlifting",
+      "name": "Bench press · maximum",
+      "unit": "kg",
+      "direction": "high"
+    },
+    {
+      "id": "squat",
+      "role": "Lifting",
+      "klass": "Powerlifting",
+      "name": "Squat · maximum",
+      "unit": "kg",
+      "direction": "high"
+    },
+    {
+      "id": "deadlift",
+      "role": "Lifting",
+      "klass": "Powerlifting",
+      "name": "Deadlift · maximum",
+      "unit": "kg",
+      "direction": "high"
+    },
+    {
+      "id": "total",
+      "role": "Lifting",
+      "klass": "Powerlifting",
+      "name": "Powerlifting total",
+      "unit": "kg",
+      "direction": "high"
+    },
+    {
+      "id": "snatch",
+      "role": "Lifting",
+      "klass": "Weightlifting",
+      "name": "Snatch",
+      "unit": "kg",
+      "direction": "high"
+    },
+    {
+      "id": "cj",
+      "role": "Lifting",
+      "klass": "Weightlifting",
+      "name": "Clean & jerk",
+      "unit": "kg",
+      "direction": "high"
+    },
+    {
+      "id": "stone",
+      "role": "Lifting",
+      "klass": "Strongman",
+      "name": "Stone to shoulder",
+      "unit": "kg",
+      "direction": "high"
+    },
+    {
+      "id": "moonboard",
+      "role": "Climbing",
+      "klass": "Bouldering",
+      "name": "MoonBoard benchmark",
+      "unit": "grade",
+      "direction": "high"
+    }
+  ],
+  "results": []
+}
