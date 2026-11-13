@@ -1,5 +1,5 @@
 {
-  "version": 1,
+  "version": 2,
   "club": "KFA",
   "updated": "2026-11-13",
   "description": "Admin-approved KFA performance records. No imported results have been approved yet.",
@@ -69,5 +69,28 @@
       "direction": "high"
     }
   ],
-  "results": []
+  "results": [],
+  "record_classes": [
+    {
+      "klass": "Powerlifting",
+      "sex": "Karlar",
+      "source_url": "https://web.archive.org/web/20191022004324/http://kfa.is/akureyrarmet-kraftlyftingum/",
+      "weight_classes": [],
+      "note": "Fill from verified original KFA tables; do not substitute current weight classes"
+    },
+    {
+      "klass": "Powerlifting",
+      "sex": "Konur",
+      "source_url": "https://web.archive.org/web/20191022004324/http://kfa.is/akureyrarmet-kraftlyftingum/",
+      "weight_classes": [],
+      "note": "Fill from verified original KFA tables"
+    },
+    {
+      "klass": "Weightlifting",
+      "sex": "Karlar",
+      "source_url": "https://web.archive.org/web/20191022023611/http://kfa.is/akureyrarmet-karla-ol/",
+      "weight_classes": [],
+      "note": "Preserve historic divisions and boundaries"
+    }
+  ]
 }
