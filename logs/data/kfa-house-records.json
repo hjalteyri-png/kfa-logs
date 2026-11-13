@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "title": "KFA Húsmet — Kraftlyftingar",
+  "updated": "2026-11-13",
+  "class_system": "USAPL",
+  "rules": "KFA house board. Members and visiting athletes eligible. Training or competition performances may count, subject to admin approval. Preserve historical results when superseded.",
+  "divisions": {
+    "Karlar": [
+      "52",
+      "56",
+      "60",
+      "67.5",
+      "75",
+      "82.5",
+      "90",
+      "100",
+      "110",
+      "125",
+      "140",
+      "+140"
+    ],
+    "Konur": [
+      "44",
+      "48",
+      "52",
+      "56",
+      "60",
+      "65",
+      "70",
+      "75",
+      "82.5",
+      "90",
+      "100",
+      "+100"
+    ]
+  },
+  "lifts": [
+    {
+      "id": "squat",
+      "name": "Hnébeygja"
+    },
+    {
+      "id": "bench",
+      "name": "Bekkpressa"
+    },
+    {
+      "id": "deadlift",
+      "name": "Réttstöðulyfta"
+    },
+    {
+      "id": "total",
+      "name": "Samanlagt"
+    }
+  ],
+  "records": []
+}
