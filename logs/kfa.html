@@ -10,7 +10,7 @@
 <div class="controls"><label>Flokkur<select id="division"><option>Karlar</option><option>Konur</option></select></label><label>Þyngdarflokkur<select id="weight"><option value="all">Allir flokkar</option></select></label></div>
 <nav class="lifts" id="lifts" aria-label="Lyftur"></nav><p class="small" id="status">Sæki húsmet…</p><div class="tablewrap"><table><thead><tr><th>Þyngdarflokkur</th><th>Methafi</th><th>Tengsl</th><th>Tegund</th><th>Dags.</th><th>Staður</th><th>Árangur</th></tr></thead><tbody id="board"></tbody></table></div>
 <div id="detail" class="detail" hidden></div></section>
-<section class="panel"><h2>Hvernig taflan virkar</h2><p class="small">Met geta komið frá félagsmönnum eða gestum og úr æfingum eða keppnum. Fyrri met haldast í gagnasafninu þótt þau séu bætt. Stjórnendur yfirfara nýjar lyftur áður en þær birtast; vefsíðan er aðeins til lestrar.</p><p class="small">Þessi fyrsta útgáfa inniheldur enn engin staðfest húsmet. Keppnisgögn í eldri KFA-safni eru ekki sjálfkrafa húsmet.</p><a href="https://github.com/hjalteyri-png/kfa-logs/edit/main/logs/data/kfa-house-records.json">Stjórnendur: uppfæra staðfest húsmet á GitHub ↗</a></section>
+<section class="panel" id="historical"><div class="row"><h2>Akureyrarmet · söguleg skrá</h2><span class="pill">KFA SAFN / 2019</span></div><p class="small">Gömlu metatöflurnar af vef KFA. Upprunalegir þyngdarflokkar eru sýndir nákvæmlega eins og í gögnunum, enda vantar raunverulega vigt einstakra keppenda til að færa þau í USAPL-flokka. Þetta eru Akureyrarmet, ekki sjálfkrafa húsmet.</p><div class="controls"><label>Íþrótt<select id="archiveSport"><option value="Powerlifting">Kraftlyftingar</option><option value="Weightlifting">Ólympískar lyftingar</option></select></label><label>Flokkur<select id="archiveDivision"><option>Karlar</option><option>Konur</option></select></label></div><nav class="lifts" id="archiveLifts" aria-label="Sögulegar lyftur"></nav><p class="small" id="archiveStatus">Sæki sögulegu metin…</p><div class="tablewrap"><table><thead><tr><th>Uppr. flokkur</th><th>Nafn</th><th>Staður</th><th>Dagsetning</th><th>Lyfta</th></tr></thead><tbody id="archiveBoard"></tbody></table></div><p class="small">„Viðmið“ eru viðmiðunartölur, ekki einstaklingar. Óljósar eða afskornar dagsetningar eru ekki ágiskaðar.</p></section><section class="panel"><h2>Hvernig taflan virkar</h2><p class="small">Met geta komið frá félagsmönnum eða gestum og úr æfingum eða keppnum. Fyrri met haldast í gagnasafninu þótt þau séu bætt. Stjórnendur yfirfara nýjar lyftur áður en þær birtast; vefsíðan er aðeins til lestrar.</p><p class="small">Þessi fyrsta útgáfa inniheldur enn engin staðfest húsmet. Keppnisgögn í eldri KFA-safni eru ekki sjálfkrafa húsmet.</p><a href="https://github.com/hjalteyri-png/kfa-logs/edit/main/logs/data/kfa-house-records.json">Stjórnendur: uppfæra staðfest húsmet á GitHub ↗</a></section>
 </main><footer>KFA · Kraftlyftingafélag Akureyrar · Húsmet í kraftlyftingum</footer>
 <script>
 const $=id=>document.getElementById(id);
@@ -43,4 +43,31 @@ function showDetail(r,history){
 $("division").addEventListener("change",()=>{fillWeights();render()});$("weight").addEventListener("change",render);
 function fillWeights(){const select=$("weight");select.replaceChildren();const all=document.createElement("option");all.value="all";all.textContent="Allir flokkar";select.append(all);for(const c of db.divisions[$("division").value]||[]){const o=make("option",c+" kg");o.value=c;select.append(o)}}
 fetch("data/kfa-house-records.json").then(r=>{if(!r.ok)throw Error("Gögn ekki tiltæk");return r.json()}).then(d=>{db=d;const approved=d.records.filter(valid);$("number").textContent=approved.length;$("athletes").textContent=new Set(approved.map(r=>r.athlete.toLowerCase())).size;$("classes").textContent=new Set([...d.divisions.Karlar,...d.divisions.Konur]).size;const tabs=$("lifts");for(const lift of d.lifts){const b=make("button",lift.name);b.type="button";b.setAttribute("aria-pressed",lift.id===selected?"true":"false");b.addEventListener("click",()=>{selected=lift.id;for(const other of tabs.querySelectorAll("button"))other.setAttribute("aria-pressed",other===b?"true":"false");render()});tabs.append(b)}fillWeights();render()}).catch(e=>{$("status").textContent=e.message});
+</script><script>
+(function(){
+const byId=id=>document.getElementById(id);
+const labels={squat:"Hnébeygja",bench:"Bekkpressa",deadlift:"Réttstöðulyfta",total:"Samanlagt",snatch:"Snörun"};
+let archive=null,selected="squat";
+const make=(tag,text)=>{const el=document.createElement(tag);el.textContent=text;return el};
+function choices(){
+const sport=byId("archiveSport").value, division=byId("archiveDivision").value;
+const available=sport==="Weightlifting"?["snatch"]:["squat","bench","deadlift","total"];
+if(!available.includes(selected))selected=available[0];
+byId("archiveDivision").querySelector('option[value="Konur"]').disabled=sport==="Weightlifting";
+if(sport==="Weightlifting"&&division==="Konur")byId("archiveDivision").value="Karlar";
+const target=byId("archiveLifts");target.replaceChildren();
+for(const id of available){const button=make("button",labels[id]);button.type="button";button.setAttribute("aria-pressed",id===selected?"true":"false");button.addEventListener("click",()=>{selected=id;choices()});target.append(button)}
+render();
+}
+function render(){
+const sport=byId("archiveSport").value,division=byId("archiveDivision").value;
+const records=archive.records.filter(r=>r.discipline===sport&&r.division===division&&r.lift===selected);
+byId("archiveStatus").textContent=records.length+" skráðar færslur · "+labels[selected];
+const tbody=byId("archiveBoard");tbody.replaceChildren();
+for(const r of records){const tr=document.createElement("tr");const fields=[r.original_weight_class+" kg",r.record_type==="benchmark"?"Viðmið":r.athlete,r.venue||"—",r.date||"—",r.value.toLocaleString("is-IS")+" kg"];fields.forEach(v=>tr.append(make("td",v)));tbody.append(tr)}
+if(!records.length){const tr=document.createElement("tr"),td=make("td","Engin met skráð í þessum flokki");td.colSpan=5;tr.append(td);tbody.append(tr)}
+}
+byId("archiveSport").addEventListener("change",choices);byId("archiveDivision").addEventListener("change",choices);
+fetch("data/akureyri-historical-records.json").then(r=>{if(!r.ok)throw Error("Söguleg met ekki tiltæk");return r.json()}).then(d=>{archive=d;choices()}).catch(e=>{byId("archiveStatus").textContent=e.message});
+})();
 </script></body></html>
