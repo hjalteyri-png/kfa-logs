@@ -69,7 +69,8 @@
       "event": "Æfing",
       "source": "Staðfest af KFA í samtali 13. nóvember 2026; +100 kg flokkur staðfestur 13. nóvember 2026",
       "status": "approved",
-      "classification_status": "confirmed"
+      "classification_status": "confirmed",
+      "equipment": "unknown"
     },
     {
       "id": "kfa-house-hulda-squat-2605",
@@ -86,7 +87,8 @@
       "event": null,
       "source": "Staðfest af KFA; -82,5 kg flokkur leiðréttur 13. nóvember 2026",
       "status": "approved",
-      "classification_status": "confirmed"
+      "classification_status": "confirmed",
+      "equipment": "unknown"
     },
     {
       "id": "kfa-house-ardis-bench-plus100",
@@ -100,7 +102,8 @@
       "performance_type": "unknown",
       "source": "Skráð af KFA 13. nóvember 2026",
       "status": "approved",
-      "classification_status": "confirmed"
+      "classification_status": "confirmed",
+      "equipment": "unknown"
     },
     {
       "id": "kfa-house-soley-deadlift-plus100",
@@ -114,7 +117,8 @@
       "performance_type": "unknown",
       "source": "Skráð af KFA 13. nóvember 2026",
       "status": "approved",
-      "classification_status": "confirmed"
+      "classification_status": "confirmed",
+      "equipment": "unknown"
     },
     {
       "id": "kfa-house-hulda-bench-825",
@@ -127,7 +131,8 @@
       "performance_type": "unknown",
       "source": "Skráð af KFA 13. nóvember 2026",
       "status": "approved",
-      "classification_status": "confirmed"
+      "classification_status": "confirmed",
+      "equipment": "unknown"
     },
     {
       "id": "kfa-house-hulda-deadlift-825",
@@ -140,7 +145,8 @@
       "performance_type": "unknown",
       "source": "Skráð af KFA 13. nóvember 2026",
       "status": "approved",
-      "classification_status": "confirmed"
+      "classification_status": "confirmed",
+      "equipment": "unknown"
     },
     {
       "id": "kfa-house-hulda-squat-75-190",
@@ -155,7 +161,8 @@
       "affiliation": "member",
       "source": "Staðfest af KFA í samtali 13. nóvember 2026",
       "status": "approved",
-      "classification_status": "confirmed"
+      "classification_status": "confirmed",
+      "equipment": "unknown"
     },
     {
       "id": "kraft-sara-viktoria-squat-2023-10-22",
@@ -175,7 +182,8 @@
       "source_url": "https://results.kraft.is/records/women/open",
       "status": "approved",
       "classification_status": "confirmed",
-      "historical": true
+      "historical": true,
+      "equipment": "equipped"
     },
     {
       "id": "kraft-sara-viktoria-bench-2023-10-22",
@@ -193,7 +201,8 @@
       "source_url": "https://results.kraft.is/records/women/open",
       "status": "approved",
       "classification_status": "confirmed",
-      "historical": true
+      "historical": true,
+      "equipment": "equipped"
     },
     {
       "id": "kraft-hulda-squat-2018-11-17",
@@ -211,7 +220,8 @@
       "source_url": "https://results.kraft.is/records/women/open",
       "status": "approved",
       "classification_status": "confirmed",
-      "historical": true
+      "historical": true,
+      "equipment": "unknown"
     },
     {
       "id": "kraft-hulda-bench-2019-10-12",
@@ -229,7 +239,8 @@
       "source_url": "https://results.kraft.is/records/women/open",
       "status": "approved",
       "classification_status": "confirmed",
-      "historical": true
+      "historical": true,
+      "equipment": "unknown"
     },
     {
       "id": "kraft-frida-deadlift-2015-03-21",
@@ -247,7 +258,8 @@
       "source_url": "https://results.kraft.is/records/women/open",
       "status": "approved",
       "classification_status": "confirmed",
-      "historical": true
+      "historical": true,
+      "equipment": "unknown"
     },
     {
       "id": "kraft-helgi-gardar-gardar-squat-2016-05-28",
@@ -266,7 +278,8 @@
       "status": "approved",
       "classification_status": "confirmed",
       "historical": true,
-      "venue": null
+      "venue": null,
+      "equipment": "unknown"
     },
     {
       "id": "kraft-helgi-gardar-gardar-bench-2016-05-28",
@@ -285,7 +298,8 @@
       "status": "approved",
       "classification_status": "confirmed",
       "historical": true,
-      "venue": null
+      "venue": null,
+      "equipment": "unknown"
     },
     {
       "id": "kraft-helgi-gardar-gardar-deadlift-2016-05-28",
@@ -304,7 +318,8 @@
       "status": "approved",
       "classification_status": "confirmed",
       "historical": true,
-      "venue": null
+      "venue": null,
+      "equipment": "unknown"
     },
     {
       "id": "kraft-einar-tor-birgisson-squat-2016-05-28",
@@ -323,7 +338,8 @@
       "status": "approved",
       "classification_status": "confirmed",
       "historical": true,
-      "venue": null
+      "venue": null,
+      "equipment": "unknown"
     },
     {
       "id": "kraft-einar-tor-birgisson-bench-2016-05-28",
@@ -342,7 +358,8 @@
       "status": "approved",
       "classification_status": "confirmed",
       "historical": true,
-      "venue": null
+      "venue": null,
+      "equipment": "unknown"
     },
     {
       "id": "kraft-einar-tor-birgisson-deadlift-2016-05-28",
@@ -361,7 +378,8 @@
       "status": "approved",
       "classification_status": "confirmed",
       "historical": true,
-      "venue": null
+      "venue": null,
+      "equipment": "unknown"
     },
     {
       "id": "kraft-bergur-brynjar-gislason-squat-2014-11-22",
@@ -380,7 +398,8 @@
       "status": "approved",
       "classification_status": "confirmed",
       "historical": true,
-      "venue": null
+      "venue": null,
+      "equipment": "unknown"
     },
     {
       "id": "kraft-bergur-brynjar-gislason-bench-2014-11-22",
@@ -399,7 +418,8 @@
       "status": "approved",
       "classification_status": "confirmed",
       "historical": true,
-      "venue": null
+      "venue": null,
+      "equipment": "unknown"
     },
     {
       "id": "kraft-bergur-brynjar-gislason-deadlift-2014-11-22",
@@ -418,7 +438,8 @@
       "status": "approved",
       "classification_status": "confirmed",
       "historical": true,
-      "venue": null
+      "venue": null,
+      "equipment": "unknown"
     },
     {
       "id": "kraft-eduard-laur-squat-2024-04-06",
@@ -437,7 +458,8 @@
       "status": "approved",
       "classification_status": "confirmed",
       "historical": true,
-      "venue": null
+      "venue": null,
+      "equipment": "raw"
     },
     {
       "id": "kraft-eduard-laur-bench-2024-04-06",
@@ -456,7 +478,8 @@
       "status": "approved",
       "classification_status": "confirmed",
       "historical": true,
-      "venue": null
+      "venue": null,
+      "equipment": "raw"
     },
     {
       "id": "kraft-eduard-laur-deadlift-2024-04-06",
@@ -475,7 +498,8 @@
       "status": "approved",
       "classification_status": "confirmed",
       "historical": true,
-      "venue": null
+      "venue": null,
+      "equipment": "raw"
     },
     {
       "id": "kraft-freyr-adalsteinsson-squat-2012-03-24",
@@ -494,7 +518,8 @@
       "status": "approved",
       "classification_status": "confirmed",
       "historical": true,
-      "venue": null
+      "venue": null,
+      "equipment": "unknown"
     },
     {
       "id": "kraft-freyr-adalsteinsson-bench-2012-03-24",
@@ -513,7 +538,8 @@
       "status": "approved",
       "classification_status": "confirmed",
       "historical": true,
-      "venue": null
+      "venue": null,
+      "equipment": "unknown"
     },
     {
       "id": "kraft-freyr-adalsteinsson-deadlift-2012-03-24",
@@ -532,7 +558,8 @@
       "status": "approved",
       "classification_status": "confirmed",
       "historical": true,
-      "venue": null
+      "venue": null,
+      "equipment": "unknown"
     }
   ],
   "notes": "Confirmed house lifts without verified  weight class remain visible in an unclassified section, not falsely assigned to current division."
