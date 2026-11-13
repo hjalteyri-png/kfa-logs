@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Kveldúlfur Logs — Rankings</title>
+<style>
+:root{font-family:system-ui,Arial,sans-serif;color:#e9edf2;background:#101318}*{box-sizing:border-box}body{margin:0}header{border-bottom:1px solid #303741;padding:24px max(20px,calc((100vw - 1050px)/2))}h1{margin:0;font-size:28px;letter-spacing:.04em}header p,.muted{color:#9da8b5}main{max-width:1050px;margin:32px auto;padding:0 20px}.panel{background:#191f27;border:1px solid #303741;border-radius:14px;padding:22px;margin-bottom:20px}h2{margin:0 0 16px;font-size:20px}.controls{display:flex;gap:16px;flex-wrap:wrap}label{display:grid;gap:7px;flex:1;min-width:200px;font-size:13px;color:#aeb8c4}select,input,button{background:#111820;color:#fff;border:1px solid #45515e;border-radius:8px;padding:11px;font:inherit}button{cursor:pointer;background:#344f71}button:hover{background:#42648d}table{width:100%;border-collapse:collapse}th,td{text-align:left;padding:13px 8px;border-bottom:1px solid #303741}th{font-size:12px;color:#aeb8c4}tr[data-id]{cursor:pointer}tr[data-id]:hover{background:#25303b}.right{text-align:right}.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}.stat{background:#111820;border-radius:9px;padding:16px}.stat strong{display:block;font-size:24px;margin-top:6px}.note{font-size:13px;color:#aeb8c4}.row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}input{min-width:0}.empty{padding:20px;color:#aeb8c4}@media(max-width:550px){.stats{grid-template-columns:1fr}th,td{padding:10px 4px;font-size:13px}}
+</style></head><body>
+<header><h1>KVELDÚLFUR LOGS</h1><p>Performance rankings · Parses · Comparisons</p></header>
+<main>
+<section class="panel"><h2>Explore rankings</h2><div class="controls"><label>Role<select id="role"></select></label><label>Class<select id="klass"></select></label><label>Feat<select id="feat"></select></label><label>Club<select id="club"></select></label></div></section>
+<section class="panel"><div class="row" style="justify-content:space-between"><h2 id="heading">Leaderboard</h2><span class="note">DEMO DATA — NOT REAL RECORDS</span></div><div style="overflow-x:auto"><table><thead><tr><th>Rank</th><th>Athlete</th><th>Club</th><th class="right">Result</th><th class="right">Parse*</th></tr></thead><tbody id="rows"></tbody></table></div><p class="note">*Percentile among the displayed comparison group. Small sample sizes are not meaningful population benchmarks. Results are fictional.</p></section>
+<section class="panel"><h2>Performance comparison</h2><div id="comparison" class="stats"></div></section>
+<section class="panel"><h2>Add a demonstration performance</h2><form id="form" class="controls"><label>Athlete<input id="name" required maxlength="60" placeholder="Athlete name"></label><label>Club<input id="clubName" maxlength="60" placeholder="Club name"></label><label>Result <input id="result" type="number" min="0" step="any" required placeholder="Measured value"></label><div style="align-self:end"><button type="submit">Add demo log</button></div></form><p class="note">Entries are saved in this browser only (localStorage). No accounts, server upload or verification yet.</p><button id="reset" type="button">Reset demonstration data</button></section>
+</main>
+<script>
+const definitions=[
+{id:"deadlift",role:"Lifting",klass:"Strength",name:"Deadlift · single",unit:"kg",direction:"high"},
+{id:"stone",role:"Lifting",klass:"Strength",name:"Stone to shoulder",unit:"kg",direction:"high"},
+{id:"snatch",role:"Lifting",klass:"Weightlifting",name:"Snatch · single",unit:"kg",direction:"high"},
+{id:"moonboard",role:"Climbing",klass:"Board climbing",name:"Benchmark problems completed",unit:"problems",direction:"high"},
+{id:"hang",role:"Climbing",klass:"Grip",name:"Dead hang",unit:"seconds",direction:"high"},
+{id:"throw",role:"Projectiles",klass:"Throwing",name:"Stone throw · distance",unit:"m",direction:"high"},
+{id:"sprint",role:"Movement",klass:"Speed",name:"100 m sprint",unit:"seconds",direction:"low"}];
+const seed=[
+["deadlift","Atlas","North",420],["deadlift","Björn","KFA",360],["deadlift","Erik","West",310],["deadlift","Hans","KFA",275],["deadlift","Aron","East",220],
+["stone","Atlas","North",190],["stone","Björn","KFA",160],["stone","Erik","West",140],["stone","Hans","KFA",120],
+["snatch","Aron","East",145],["snatch","Hans","KFA",130],["snatch","Erik","West",115],
+["moonboard","Aron","East",42],["moonboard","Hans","KFA",35],["moonboard","Björn","KFA",22],
+["hang","Aron","East",120],["hang","Hans","KFA",100],["hang","Erik","West",80],
+["throw","Hans","KFA",38],["throw","Atlas","North",34],["throw","Aron","East",29],
+["sprint","Aron","East",11.2],["sprint","Hans","KFA",12.1],["sprint","Björn","KFA",13.5]
+].map((r,i)=>({id:i+1,feat:r[0],name:r[1],club:r[2],value:r[3]}));
+const $=id=>document.getElementById(id);
+let entries=load(),selected=null;
+function load(){try{const v=JSON.parse(localStorage.getItem("kveldulfur-demo-logs"));return Array.isArray(v)?v:seed.slice()}catch{return seed.slice()}}
+function save(){try{localStorage.setItem("kveldulfur-demo-logs",JSON.stringify(entries))}catch{}}
+function options(el,values){const old=el.value;el.replaceChildren(...values.map(([value,label])=>{const o=document.createElement("option");o.value=value;o.textContent=label;return o}));if(values.some(x=>x[0]===old))el.value=old}
+function updateFilters(level=0){
+if(level<=0)options($("role"),[...new Set(definitions.map(x=>x.role))].map(x=>[x,x]));
+if(level<=1)options($("klass"),[...new Set(definitions.filter(x=>x.role===$("role").value).map(x=>x.klass))].map(x=>[x,x]));
+if(level<=2)options($("feat"),definitions.filter(x=>x.role===$("role").value&&x.klass===$("klass").value).map(x=>[x.id,x.name]));
+if(level<=3)options($("club"),[["all","All clubs"],...[...new Set(entries.filter(x=>x.feat===$("feat").value).map(x=>x.club))].sort().map(x=>[x,x])]);
+render();
+}
+function render(){
+const def=definitions.find(x=>x.id===$("feat").value);if(!def)return;
+const data=entries.filter(x=>x.feat===def.id&&($("club").value==="all"||x.club===$("club").value)).sort((a,b)=>def.direction==="low"?a.value-b.value:b.value-a.value);
+$("heading").textContent=def.name+" rankings";
+$("rows").replaceChildren();
+if(!data.length){const tr=document.createElement("tr");const td=document.createElement("td");td.colSpan=5;td.className="empty";td.textContent="No logs in this category yet.";tr.append(td);$("rows").append(tr)}
+data.forEach((p,i)=>{
+const better=data.filter(x=>def.direction==="low"?x.value<p.value:x.value>p.value).length;
+const parse=data.length>1?Math.round(100*(data.length-1-better)/(data.length-1)):100;
+const tr=document.createElement("tr");tr.dataset.id=p.id;
+[i+1,p.name,p.club,p.value+" "+def.unit,parse].forEach((v,j)=>{const td=document.createElement("td");td.textContent=v;if(j>=3)td.className="right";tr.append(td)});
+tr.addEventListener("click",()=>{selected=p.id;showComparison(data,def)});$("rows").append(tr);
+});
+if(!data.some(x=>x.id===selected))selected=data[0]?.id;
+showComparison(data,def);
+}
+function showComparison(data,def){const p=data.find(x=>x.id===selected);$("comparison").replaceChildren();if(!p)return;const better=data.filter(x=>def.direction==="low"?x.value<p.value:x.value>p.value).length;const parse=data.length>1?Math.round(100*(data.length-1-better)/(data.length-1)):100;
+[["Athlete",p.name],["Result",p.value+" "+def.unit],["Parse",parse+"th percentile"]].forEach(([label,value])=>{const box=document.createElement("div");box.className="stat";const small=document.createElement("span");small.className="muted";small.textContent=label;const strong=document.createElement("strong");strong.textContent=value;box.append(small,strong);$("comparison").append(box)})}
+$("role").addEventListener("change",()=>updateFilters(1));$("klass").addEventListener("change",()=>updateFilters(2));$("feat").addEventListener("change",()=>updateFilters(3));$("club").addEventListener("change",render);
+$("form").addEventListener("submit",e=>{e.preventDefault();const value=Number($("result").value);if(!Number.isFinite(value)||value<=0)return;const p={id:Date.now(),feat:$("feat").value,name:$("name").value.trim(),club:$("clubName").value.trim()||"Independent",value};if(!p.name)return;entries.push(p);save();$("form").reset();updateFilters(3);selected=p.id;render()});
+$("reset").addEventListener("click",()=>{entries=seed.slice();selected=null;save();updateFilters(3)});
+updateFilters();
+</script></body></html>
