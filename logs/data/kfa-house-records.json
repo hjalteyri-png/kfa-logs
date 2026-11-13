@@ -75,8 +75,8 @@
       "id": "kfa-house-hulda-squat-2605",
       "athlete": "Hulda B. Waage",
       "division": "Konur",
-      "weight_class": null,
-      "original_weight_class": null,
+      "weight_class": "90",
+      "original_weight_class": "84",
       "lift": "squat",
       "value": 260.5,
       "date": null,
@@ -87,7 +87,7 @@
       "event": null,
       "source": "Staðfest af KFA í samtali 13. nóvember 2026",
       "status": "approved",
-      "classification_status": "awaiting_verified_usapl_class"
+      "classification_status": "confirmed_by_kfa"
     }
   ],
   "notes": "Confirmed house lifts without verified USAPL weight class remain visible in an unclassified section, not falsely assigned to current division."
