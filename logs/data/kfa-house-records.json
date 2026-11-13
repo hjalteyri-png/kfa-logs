@@ -156,6 +156,26 @@
       "source": "Staðfest af KFA í samtali 13. nóvember 2026",
       "status": "approved",
       "classification_status": "confirmed"
+    },
+    {
+      "id": "kraft-sara-viktoria-squat-2023-10-22",
+      "athlete": "Sara Viktoría Bjarnadóttir",
+      "division": "Konur",
+      "weight_class": "75",
+      "original_weight_class": "76",
+      "bodyweight": 73.05,
+      "lift": "squat",
+      "value": 215,
+      "date": "2023-10-22",
+      "event": "Bikarmeistaramót í kraftlyftingum með búnaði 2023",
+      "performance_type": "competition",
+      "affiliation": "member",
+      "venue": null,
+      "source": "KRAFT úrslit; skráð sem KFA á mótinu",
+      "source_url": "https://results.kraft.is/records/women/open",
+      "status": "approved",
+      "classification_status": "confirmed",
+      "historical": true
     }
   ],
   "notes": "Confirmed house lifts without verified  weight class remain visible in an unclassified section, not falsely assigned to current division."
