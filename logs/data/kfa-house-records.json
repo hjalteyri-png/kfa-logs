@@ -141,6 +141,21 @@
       "source": "Skráð af KFA 13. nóvember 2026",
       "status": "approved",
       "classification_status": "confirmed"
+    },
+    {
+      "id": "kfa-house-hulda-squat-75-190",
+      "athlete": "Hulda B. Waage",
+      "division": "Konur",
+      "weight_class": "75",
+      "lift": "squat",
+      "value": 190,
+      "date": null,
+      "date_note": "Dagsetning ótilgreind",
+      "performance_type": "unknown",
+      "affiliation": "member",
+      "source": "Staðfest af KFA í samtali 13. nóvember 2026",
+      "status": "approved",
+      "classification_status": "confirmed"
     }
   ],
   "notes": "Confirmed house lifts without verified  weight class remain visible in an unclassified section, not falsely assigned to current division."
