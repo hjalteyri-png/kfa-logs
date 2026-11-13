@@ -1,0 +1,26 @@
+name: Import OpenPowerlifting results
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/import-openpowerlifting.yml"
+permissions:
+  contents: write
+jobs:
+  import:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download OpenPowerlifting bulk export
+        run: curl --fail --location --retry 3 --output /tmp/openpowerlifting-latest.zip https://openpowerlifting.gitlab.io/opl-csv/files/openpowerlifting-latest.zip
+      - name: Produce browser rankings
+        run: python3 tools/import_openpowerlifting.py /tmp/openpowerlifting-latest.zip --limit 100
+      - name: Commit generated rankings
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add logs/data/openpowerlifting.json
+          if ! git diff --cached --quiet; then
+            git commit -m "Update OpenPowerlifting rankings data"
+            git push
+          fi
